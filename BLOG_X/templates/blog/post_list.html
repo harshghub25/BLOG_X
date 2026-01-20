@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h2>All Posts</h2>
+    {% for post in object_list %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h5>
+          <p class="text-muted">By <a href="#">{{ post.author.username }}</a> on {{ post.created|date:'M d, Y' }}</p>
+          <p>{{ post.content|truncatechars:200 }}</p>
+          <p><small>{{ post.likes_count }} likes • {{ post.comments.count }} comments</small></p>
+        </div>
+      </div>
+    {% empty %}<p>No posts yet.</p>{% endfor %}
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3"><h5>Filters</h5>
+      <form method="get">
+        <div class="mb-2"><input name="author" class="form-control" placeholder="Author username"></div>
+        <div class="mb-2"><input name="category" class="form-control" placeholder="Category slug"></div>
+        <button class="btn btn-sm btn-primary">Filter</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h2>Latest Posts</h2>
+    {% for p in latest %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5><a href="{% url 'post_detail' p.slug %}">{{ p.title }}</a></h5>
+          <p class="text-muted">By {{ p.author }} on {{ p.created|date:'M d, Y' }}</p>
+        </div>
+      </div>
+    {% empty %}<p>No posts yet.</p>{% endfor %}
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3"><h5>About WriteSphere</h5><p>Community blogging platform.</p></div>
+  </div>
+</div>
+{% endblock %}
